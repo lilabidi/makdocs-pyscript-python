@@ -12,3 +12,6 @@
     ```
     ``````
   * Publish!
+
+
+  *Thanks to [JeffersGlass](https://github.com/JeffersGlass/mkdocs-pyscript-demo)*
