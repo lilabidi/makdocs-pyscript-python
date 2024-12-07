@@ -1,0 +1,53 @@
+
+<html>
+  <body>
+    <p>Appuyer sur <em>s</em> pour démarrer et sur <em>espace</em> opur faire
+    une étape.</p>
+    <p>
+    S: <table> <tr id="stack"> </tr> </table>
+    Q: <table> <tr id="queue"> </tr> </table>
+    e: <table> <tr id="e"> </tr> </table> </body>
+<style type="text/css">
+table { display: inline; border-collapse: collapse; }
+td { border: solid 1px; }
+</style>
+  <script>
+    var S = document.getElementById("stack")
+    var Q = document.getElementById("queue")
+    var e = document.getElementById("e")
+
+    function empty(S) { return S.childElementCount == 0 }
+    function insert(S, i, x) { S.insertCell(i).append(x) }
+    function push(S, x) { insert(S, -1, x) }
+    function queue(S, x) { insert(S, 0, x) }
+    function stacktop(S) { return 0 | S.children[S.childElementCount - 1].textContent }
+    function pop(S) { var x = stacktop(S); S.deleteCell(S.childElementCount - 1); return x }
+
+    function smallStep() {
+      if (empty(e))
+        push(e, pop(Q))
+      else if (!empty(S) && stacktop(e) < stacktop(S))
+        queue(Q, pop(S))
+      else
+        push(S, pop(e))
+    }
+
+    function start(lst) {
+      while (!empty(S)) pop(S)
+      while (!empty(Q)) pop(Q)
+      for (var x of lst)
+        push(Q, x)
+    }
+
+    document.addEventListener('keydown', function(event) {
+      switch (event.key) {
+        case ' ':
+          smallStep()
+          break
+        case 's':
+          start([8,44,55,29,22,35,50,14,76]);
+          break
+      }
+    });
+  </script>
+</html>
